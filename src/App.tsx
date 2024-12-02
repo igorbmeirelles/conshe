@@ -85,7 +85,7 @@ function App(): JSX.Element {
             (contact, index) =>
               ({
                 id: index,
-                name: `${contact.NOME} ${contact.CPF} ${contact.TIPO}`,
+                name: `${contact.NOME} ${contact.CPF} ${contact.TIPO ?? ""}`,
                 label: contact.TIPO,
                 cpf: contact.CPF,
                 convenio: contact.TIPO,
