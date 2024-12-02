@@ -8,6 +8,7 @@ import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { Input } from "@/components/ui/input";
+import Logo from "@/assets/profile_fenixplataformadecredito.png";
 
 interface Contact {
   id: number;
@@ -242,6 +243,12 @@ function App(): JSX.Element {
     return (
       <div className="max-w[960px] mx-auto grid place-items-center h-dvh">
         <div className="flex flex-col">
+          <img
+            src={
+              "https://cdn.beacons.ai/user_content/QoZ2OcuxAhdw7GD5YSwonWZHnN33/profile_fenixplataformadecredito.png?q=1725114747.4797835"
+            }
+            className="w-32 h-32 mx-auto mb-4 rounded-full"
+          />
           <h2 className="font-bold text-lg mb-4">
             Clique no botão para fazer login
           </h2>
