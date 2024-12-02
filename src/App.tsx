@@ -8,7 +8,6 @@ import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { Input } from "@/components/ui/input";
-import Logo from "@/assets/profile_fenixplataformadecredito.png";
 
 interface Contact {
   id: number;
