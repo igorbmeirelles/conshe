@@ -8,6 +8,13 @@ import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./components/ui/select";
 
 interface Contact {
   id: number;
@@ -46,6 +53,7 @@ function App(): JSX.Element {
     | null
   >(null);
   const [password, setPassword] = useState<string>("");
+  const [label, setLabel] = useState<string>("");
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -128,11 +136,9 @@ function App(): JSX.Element {
 
       try {
         console.log("Enviando contato", contact.name, contact.phone);
-        const groupId =
-          group?.find((g) => g.name === contact.label)?.resourceName ?? "";
 
-        const groupToAdd = groupId
-          ? [{ contactGroupMembership: { contactGroupResourceName: groupId } }]
+        const groupToAdd = label
+          ? [{ contactGroupMembership: { contactGroupResourceName: label } }]
           : [];
 
         await axios.post(
@@ -144,11 +150,11 @@ function App(): JSX.Element {
             userDefined: [
               {
                 key: "CPF",
-                value: contact.cpf.toString(),
+                value: (contact.cpf ?? "Não informado").toString(),
               },
               {
                 key: "Convenio",
-                value: contact.convenio.toString(),
+                value: (contact.convenio ?? "Não informado").toString(),
               },
             ],
           },
@@ -275,6 +281,18 @@ function App(): JSX.Element {
     <main className={`w-[960px] mx-auto grid place-items-center h-dvh`}>
       <Card className="w-full p-4">
         <CardContent>
+          <Select value={label} onValueChange={setLabel}>
+            <SelectTrigger className="w-full mb-3">
+              <SelectValue placeholder="Selecione o grupo" />
+            </SelectTrigger>
+            <SelectContent>
+              {group?.map((g) => (
+                <SelectItem key={g.resourceName} value={g.resourceName}>
+                  {g.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <div className="space-y-4">
             <div
               {...getRootProps()}
